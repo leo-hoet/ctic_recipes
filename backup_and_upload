@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+execute pgdump
+tar files
+gpg
+upload to amazon

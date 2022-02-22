@@ -1,0 +1,17 @@
+---
+- hosts: masters_proxmox, nodes_proxmox
+  become: true
+  vars: 
+    nfsmounts:
+          - {  path: "/mnt/nfs_mount", src: "192.168.0.55:/nfsshare" } # CHAGE SRC FOR IP OF NAS SERVER
+  tasks:
+    - name: mount the nfsshare in client side
+            mount:
+              fstype: nfs
+              opts: defaults
+              dump: 0
+              passno: 0
+              state: mounted
+              src: "{{item.src}}"
+              path: "{{item.path}}"
+            with_items: "{{nfsmounts}}"

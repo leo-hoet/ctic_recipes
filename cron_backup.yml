@@ -1,0 +1,10 @@
+- hosts: workers_lxc
+  become: yes
+  - name: Upload files to AWS
+    ansible.builtin.cron:
+      name: AWS backup
+      weekday: "0"
+      minute: "0"
+      hour: "23"
+      user: root
+      job: "./backup_and_upload"
