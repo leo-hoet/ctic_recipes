@@ -1,0 +1,11 @@
+- hosts: workers_lxc
+  become: yes
+  - name: rsync NAS to BACKUP
+    ansible.builtin.cron:
+      name: AWS backup
+      special_time: "daily"
+      minute: "0"
+      hour: "23"
+      user: root
+      job: "rsync -avzher ssh /path/to/data/in/NAS user@nfs_backup:/backups" # change user and nfs_backup for the user and IP in the NAS server
+"
