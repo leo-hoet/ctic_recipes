@@ -1,0 +1,11 @@
+- hosts: workers_lxc
+  become: yes
+  - name: LXC backup 
+    ansible.builtin.cron:
+      name: LXC backup
+      special_time: "daily"
+      minute: "0"
+      hour: "22"
+      user: root
+      job: "vzdump --all" 
+"
