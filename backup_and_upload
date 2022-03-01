@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-execute pgdump
-tar files
-gpg
-upload to amazon
+pg_dump dbname > dumpfile
+tar -czvf dumpfile.tar.gz dumpfile 
+gpg -c dumpfile.tar.gz
+curl --data-binary "@/path/to/filename" urlAWS
