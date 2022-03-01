@@ -47,12 +47,26 @@ sshkeys = <<EOF
 
   provisioner "remote-exec" {    
       inline = [
+          "echo 'Installing ansible'",
           "apt update && apt upgrade",      
           "apt install software-properties-common",
           "add-apt-repository --yes --update ppa:ansible/ansible",
           "apt install ansible",
-          "ansible-playbook -i hosts setup_playbook.yml && ansible-playbook -i kube.yml"
- 
-      ]  
+          "curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -",
+          "echo 'Installing helm'",
+          "sudo apt-get install apt-transport-https --yes",
+          "echo 'deb https://baltocdn.com/helm/stable/debian/ all main' | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list",
+          "sudo apt-get update",
+          "sudo apt-get install helm",
+          "echo 'Applying ansible configuration'",
+          "ansible-playbook -i hosts setup_playbook.yml && ansible-playbook -i kube.yml",
+          "echo 'Applying kubernetes configuration'",
+          "git clone https://github.com/leo-hoet/ctic_recipes",
+          "git clone https://github.com/alias2696/Ubiquiti-Unifi-Controller/tree/master/kubernetes",
+          "kubectl apply -f Ubiquiti-unifi-controller/kubernetes",
+          "kubectl apply -f ctic-recipes/k8s",
+          "helm repo add bitnami https://charts.bitnami.com/bitnami",
+          "helm install my-release bitnami/redmine",
+      ]
     }
 }

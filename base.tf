@@ -21,11 +21,11 @@ resource "proxmox_lxc" "base_lxc" {
     size    = "8G"
   }
 
-  // NFS share mounted on host
+  // NFS mount
   mountpoint {
     slot    = "0"
-    storage = "/mnt/host/nfs"
-    mp      = "/mnt/container/nfs"
+    storage = "/mnt/nfs" # Volume to mount
+    mp      = "/mnt/nfs" # Where is goint to mount nfs
     size    = "250G"
   }
 
