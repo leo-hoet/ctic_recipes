@@ -3,4 +3,5 @@
 pg_dump dbname > dumpfile
 tar -czvf dumpfile.tar.gz dumpfile 
 gpg -c dumpfile.tar.gz
-curl --data-binary "@/path/to/filename" urlAWS
+HASH=sha256 dumpfile.tar.gz 
+curl -H "x-amz-archive-description: backup" -H "x-amz-content-sha256: $HASH" --data-binary dumpfile.tar.gz urlAWS
