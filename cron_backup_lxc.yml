@@ -8,4 +8,3 @@
       hour: "22"
       user: root
       job: "vzdump --all" 
-"
