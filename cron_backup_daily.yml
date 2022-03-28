@@ -8,3 +8,11 @@
       hour: "23"
       user: root
       job: "rsync -avzher ssh /path/to/data user@nfs_backup:/backups" # change user and nfs_backup for the user and IP in the NAS server
+  - name: rsync backup recipes
+    ansible.builtin.cron:
+      name: Sync recipes between NAS and BACKUP
+      special_time: "daily"
+      minute: "0"
+      hour: "23"
+      user: root
+      job: "rsync -avzher ssh /path/to/recipes user@nfs_backup:/backups/recipes" # change user and nfs_backup for the user and IP in the NAS server

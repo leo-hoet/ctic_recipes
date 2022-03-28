@@ -1,7 +1,8 @@
 #!/usr/bin/sh
 
 pg_dump dbname > dumpfile
-tar -czvf dumpfile.tar.gz dumpfile 
+cp -r path/to/recipes recipes
+tar -czvf dumpfile.tar.gz dumpfile recipes
 gpg -c dumpfile.tar.gz
 HASH=sha256 dumpfile.tar.gz 
 curl -H "x-amz-archive-description: backup" -H "x-amz-content-sha256: $HASH" --data-binary dumpfile.tar.gz urlAWS
